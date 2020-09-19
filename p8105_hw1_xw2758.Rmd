@@ -78,13 +78,13 @@ data("penguins", package = "palmerpenguins")
 gen_plot = ggplot(
   penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species),
 )+ geom_point(na.rm = TRUE)
-gen_plot
+show(gen_plot)
 ```
 
 **Finally, I will save the scatterplot!**
 
 ```{r, save_plot}
-ggsave("gen_plot.pdf")
+ggsave("gen_plot.png")
 ```
 
 
