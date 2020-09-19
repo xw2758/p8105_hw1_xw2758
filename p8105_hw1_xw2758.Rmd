@@ -1,0 +1,90 @@
+---
+title: "Basic Plots"
+author: "Xinyi Wang(xw2758)"
+date: 2020-09-15
+output: github_document
+---
+
+This is my solution to HW1!
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+## Problem 1
+
+Create a data frame with the specific element.
+
+```{r}
+prob1_df <- 
+  tibble(
+    samp = rnorm(10),
+    samp_gt_0 = samp > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_vec = factor(c("high", "low", "low", "low", "low", "low", "low", "med", "med", "med"))
+)
+```
+
+Take the mean of each variable in my data frame.
+
+```{r, mean_pull_var}
+mean(pull(prob1_df, samp))
+mean(pull(prob1_df, samp_gt_0))
+mean(pull(prob1_df, char_vec))
+mean(pull(prob1_df, factor_vec))
+```
+
+**I can take the mean of numbers and logical but not character or factor.**
+
+```{r, try_numeric}
+as.numeric(pull(prob1_df, samp))
+as.numeric(pull(prob1_df, samp_gt_0))
+as.numeric(pull(prob1_df, char_vec))
+as.numeric(pull(prob1_df, factor_vec))
+```
+
+```{r, convert_numeric_multiply}
+as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+```
+
+
+## problem 2
+
+**First, I load the dataset!**
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+**Then, I give a short discription of penguins dataset.**
+
+(1) I find this dataset has `r ncol(penguins)` different variables, including `r names(penguins)`. 
+     - `r names(penguins[,1])`'s value is `r levels(pull(penguins,species))`.
+     - `r names(penguins[,2])`'s value is `r levels(pull(penguins,island))`.
+     - `r names(penguins[,3])`'s range is `r range(pull(penguins,bill_length_mm), na.rm = TRUE)`.
+     - `r names(penguins[,4])`'s range is `r range(pull(penguins,bill_depth_mm), na.rm = TRUE)`.
+     - `r names(penguins[,5])`'s range is `r range(pull(penguins,flipper_length_mm), na.rm = TRUE)`.
+     - `r names(penguins[,6])`'s range is `r range(pull(penguins,body_mass_g), na.rm = TRUE)`.
+     - `r names(penguins[,7])`'s value is `r levels(pull(penguins,sex))`.
+     - `r names(penguins[,8])`'s range is `r range(pull(penguins,year))`.
+(2) It has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+(3) The mean of flipper length is `r mean(pull(penguins, flipper_length_mm), na.rm = TRUE)`.
+
+
+**Then, I show a scatterplot of flipper_length_mm (y) vs bill_length_mm (x).**
+
+```{r scatterplot}
+gen_plot = ggplot(
+  penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species),
+)+ geom_point(na.rm = TRUE)
+```
+
+**Finally, I will save the scatterplot!**
+
+```{r, save_plot}
+ggsave("gen_plot.pdf")
+```
+
+
+
