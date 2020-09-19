@@ -1,6 +1,6 @@
 ---
-title: "Basic Plots"
-author: "Xinyi Wang(xw2758)"
+title: "p8105_hw1_xw2758"
+author: "Xinyi Wang"
 date: 2020-09-15
 output: github_document
 ---
